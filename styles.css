@@ -404,15 +404,16 @@ footer {
 
 .modal-content {
     background-color: var(--background-color);
-    margin: 8% auto;
+    margin: 5% auto;
     padding: 35px;
     border-radius: 15px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-    width: 80%;
-    max-width: 800px;
+    width: 90%;
+    max-width: 600px;
     transform: translateY(-30px);
     transition: transform 0.4s ease;
     position: relative;
+    text-align: center;
 }
 
 .modal.show .modal-content {
@@ -421,23 +422,43 @@ footer {
 
 .close-modal {
     position: absolute;
-    top: 20px;
-    right: 25px;
+    top: 15px;
+    right: 20px;
     color: var(--light-text);
     font-size: 32px;
     font-weight: bold;
     cursor: pointer;
     transition: var(--transition);
+    background: none;
+    border: none;
 }
 
 .close-modal:hover {
     color: var(--primary-color);
+    transform: scale(1.1);
 }
 
 .modal-image {
     width: 100%;
+    max-width: 500px;
+    height: auto;
     border-radius: 10px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    margin-top: 20px;
+}
+
+.error-message {
+    color: #e74c3c;
+    background-color: #ffeaa7;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border-left: 4px solid #e74c3c;
+}
+
+.error-message p {
+    margin: 0;
+    font-weight: 500;
 }
 
 /* Animations */

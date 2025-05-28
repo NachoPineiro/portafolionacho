@@ -1,109 +1,160 @@
-// Función mejorada para abrir el modal con manejo de errores de imagen
+// Función para abrir el modal con imagen
 function openDemoModal(title, imageSrc) {
     const modal = document.getElementById('demoModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalImage = document.getElementById('modalImage');
-    
-    console.log("Abriendo modal con imagen:", imageSrc);
-    
-    // Establecemos el título
+    const errorMessage = document.getElementById('errorMessage');
+
+    console.log("Abriendo modal:", title, "con imagen:", imageSrc);
+
+    // Establecer el título
     modalTitle.textContent = title;
-    
-    // Añadimos un manejador de error para la imagen
+
+    // Ocultar mensaje de error previo
+    errorMessage.style.display = 'none';
+    modalImage.style.display = 'block';
+
+    // Configurar eventos para la imagen
     modalImage.onerror = function() {
-      console.error("Error al cargar la imagen:", imageSrc);
-      // Mostramos un mensaje en el modal en lugar de la imagen
-      this.style.display = 'none';
-      const errorMsg = document.createElement('p');
-      errorMsg.textContent = "La imagen no pudo cargarse. Por favor verifica la ruta: " + imageSrc;
-      errorMsg.style.color = "red";
-      this.parentNode.appendChild(errorMsg);
+        console.error("Error al cargar la imagen:", imageSrc);
+        this.style.display = 'none';
+        errorMessage.style.display = 'block';
     };
-    
-    // Añadimos un evento para confirmar cuando la imagen se carga correctamente
+
     modalImage.onload = function() {
-      console.log("Imagen cargada correctamente:", imageSrc);
-      this.style.display = 'block';
+        console.log("Imagen cargada correctamente:", imageSrc);
+        this.style.display = 'block';
+        errorMessage.style.display = 'none';
     };
-    
-    // Establecemos la fuente de la imagen
+
+    // Establecer la fuente de la imagen
     modalImage.src = imageSrc;
-    
-    // Mostramos el modal con animación
+
+    // Mostrar el modal con animación
     modal.style.display = 'block';
     setTimeout(() => {
-      modal.classList.add('show');
+        modal.classList.add('show');
     }, 10);
-    
-    // Evitamos el desplazamiento del fondo
+
+    // Evitar scroll del fondo
     document.body.style.overflow = 'hidden';
-  }
-  
-  // Modificación de la configuración del botón de Pomodoro App
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log("Documento cargado, configurando modal...");
-    
-    // Configuramos el cierre del modal
-    const closeButton = document.querySelector('.close-modal');
-    const modal = document.getElementById('demoModal');
-    
-    if (!closeButton) {
-      console.error("No se encontró el botón de cierre del modal");
-    } else {
-      closeButton.addEventListener('click', closeModal);
-      console.log("Botón de cierre configurado");
-    }
-    
-    // También cerramos el modal al hacer clic fuera de su contenido
-    window.addEventListener('click', function(event) {
-      if (event.target === modal) {
-        closeModal();
-      }
-    });
-    
-    // Configuramos el botón "Ver Demo" del Pomodoro App
-    const projectCards = document.querySelectorAll('.project-card');
-    console.log("Número de tarjetas de proyecto encontradas:", projectCards.length);
-    
-    if (projectCards.length >= 2) {
-      const pomodoroProjectCard = projectCards[1]; // El segundo card (índice 1)
-      const pomodoroViewDemoButton = pomodoroProjectCard.querySelector('.project-links a:first-child');
-      
-      if (!pomodoroViewDemoButton) {
-        console.error("No se encontró el botón 'Ver Demo' en la tarjeta del Pomodoro App");
-      } else {
-        console.log("Configurando el botón 'Ver Demo' del Pomodoro App");
-        
-        pomodoroViewDemoButton.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          // Prueba con una URL de imagen absoluta para verificar si el problema es la ruta
-          // Puedes comentar esta línea y descomentar la siguiente para usar tu imagen local
-          //openDemoModal('Pomodoro App Demo', 'https://expo.dev/preview/update?message=cambio%20iconos&updateRuntimeVersion=1.0.0&createdAt=2025-05-09T12%3A53%3A33.172Z&slug=exp&projectId=4778d827-d099-4da2-86e2-2afcb489052a&group=18f93c23-e31b-4532-820f-f5b24eb8b224');
-          
-          // Descomentar la siguiente línea y ajustar la ruta a tu imagen local
-           openDemoModal('Pomodoronacho', 'QRPOMODORO.jpg');
-          
-          console.log("Botón 'Ver Demo' del Pomodoro App clickeado");
-        });
-      }
-    } else {
-      console.error("No se encontraron suficientes tarjetas de proyecto");
-    }
-  });
-  
-  // Importante mantener la función de cierre del modal
-  function closeModal() {
+}
+
+// Función para cerrar el modal
+function closeModal() {
     const modal = document.getElementById('demoModal');
     modal.classList.remove('show');
-    
-    // Permitimos el desplazamiento del fondo otra vez
+
+    // Permitir scroll del fondo nuevamente
     document.body.style.overflow = '';
-    
-    // Después de la animación, ocultamos completamente el modal
+
+    // Ocultar modal después de la animación
     setTimeout(() => {
-      if (!modal.classList.contains('show')) {
-        modal.style.display = 'none';
-      }
-    }, 300);
-  }
+        if (!modal.classList.contains('show')) {
+            modal.style.display = 'none';
+        }
+    }, 300);
+}
+
+// Configuración del hamburger menu
+function toggleHamburger() {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+}
+
+// Configuración cuando el DOM esté cargado
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Documento cargado, configurando eventos...");
+
+    // Configurar botón de cierre del modal
+    const closeButton = document.querySelector('.close-modal');
+    const modal = document.getElementById('demoModal');
+
+    if (closeButton) {
+        closeButton.addEventListener('click', closeModal);
+        console.log("Botón de cierre configurado");
+    }
+
+    // Cerrar modal al hacer clic fuera del contenido
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Cerrar modal con la tecla Escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+
+    // Configurar botones demo con data attributes
+    const demoBtns = document.querySelectorAll('.demo-btn');
+    
+    demoBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const project = this.getAttribute('data-project');
+            
+            switch(project) {
+                case 'nasa':
+                    openDemoModal('APPNASA - Demo', 'QRNASA.jpg');
+                    break;
+                case 'pomodoro':
+                    openDemoModal('Pomodoronacho - Demo', 'QRPOMODORO.jpg');
+                    break;
+                default:
+                    console.log('Proyecto no configurado:', project);
+            }
+        });
+    });
+
+    // Configurar hamburger menu
+    const hamburger = document.querySelector('.hamburger');
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleHamburger);
+    }
+
+    // Cerrar menu móvil al hacer clic en un enlace
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinksContainer = document.querySelector('.nav-links');
+            
+            if (hamburger.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navLinksContainer.classList.remove('active');
+            }
+        });
+    });
+
+    // Configurar formulario de contacto
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Obtener datos del formulario
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            // Aquí puedes agregar la lógica para enviar el formulario
+            console.log('Formulario enviado:', { name, email, message });
+            
+            // Mostrar mensaje de confirmación (puedes personalizarlo)
+            alert('¡Gracias por tu mensaje! Te contactaré pronto.');
+            
+            // Limpiar formulario
+            this.reset();
+        });
+    }
+
+    console.log("Todos los eventos configurados correctamente");
+});

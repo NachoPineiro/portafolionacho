@@ -58,7 +58,7 @@
                 <div class="project-card">
                     <h3>Pomodoronacho</h3>
                     <div class="project-links">
-                        <a href="#" class="btn">Demo</a>
+                        <a href="#" class="btn demo-btn" data-project="pomodoro">Demo</a>
                         <a href="#" class="btn">código</a>
                     </div>
                 </div>
@@ -66,6 +66,13 @@
                     <h3>Portfolio Website</h3>
                     <div class="project-links">
                         <a href="#" class="btn">Demo</a>
+                        <a href="#" class="btn">código</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>APPNASA</h3>
+                    <div class="project-links">
+                        <a href="#" class="btn demo-btn" data-project="nasa">Demo</a>
                         <a href="#" class="btn">código</a>
                     </div>
                 </div>
@@ -113,13 +120,16 @@
         </div>
     </footer>
 
-    <!-- Modal para Pomodoro App Demo -->
+    <!-- Modal para mostrar imágenes -->
     <div id="demoModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h3 id="modalTitle"></h3>
             <div class="modal-body">
                 <img id="modalImage" src="" alt="Project Demo Image" class="modal-image">
+                <div id="errorMessage" class="error-message" style="display: none;">
+                    <p>No se pudo cargar la imagen. Verifica que el archivo esté en la carpeta correcta.</p>
+                </div>
             </div>
         </div>
     </div>
